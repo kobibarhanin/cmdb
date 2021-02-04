@@ -1,0 +1,87 @@
+#! /bin/bash
+
+# path resolution:
+CMDB_DIR=${HOME}/.cmdb
+CMDB_FILE=${CMDB_DIR}/cmdb
+
+CMD=$1
+
+show_cmds(){
+    i=1
+    cat $CMDB_FILE | while read cmdstr
+    do
+        echo $i: $cmdstr
+        ((i=i+1))
+    done 
+}
+
+get_command(){
+    i=1
+    cat $CMDB_FILE | while read cmdstr
+    do
+        if [[ $i == $1 ]]; 
+        then
+            echo $cmdstr
+        fi
+        ((i=i+1))
+    done
+}
+
+
+main(){
+
+    # create if doesn't exists
+    mkdir -p $CMDB_DIR
+    touch $CMDB_FILE
+
+    if [[ $CMD == 'show' ]];
+    then
+        show_cmds
+
+    elif [[ $CMD == 'run' ]];
+    then
+        cmd_i=$2
+        if [[ -z $cmd_i ]]; 
+        then
+            show_cmds
+            echo "Select command number to run:"
+            read cmd_i
+            echo "Enter params[None]:"
+            read params
+        else
+            params="${@:3}"
+        fi
+
+        cmd_to_run=$(get_command $cmd_i)
+        eval "$cmd_to_run $params"
+
+
+    elif [[ $CMD == 'add' ]];
+    then
+        echo $2 >> $CMDB_FILE
+
+    elif [[ $CMD == 'edit' ]];
+    then
+        echo "Be carefull when editing directly."
+        $EDITOR $CMDB_FILE
+
+    else
+        usage
+    fi
+
+}
+
+usage() {
+        echo "
+cmdb <option>
+
+Options:
+
+show   prints all recorded commands
+run    run a command
+add    records a command to the db
+edit   edit the commands db your in editor\
+"
+}
+
+main "$@"
