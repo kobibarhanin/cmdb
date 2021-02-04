@@ -11,30 +11,36 @@ So that's it - no installation needed, just clone the repo and you're good to go
 cmdb
 ```
 
-_usage pic_
+<img src="https://github.com/kobibarhanin/cmdb/blob/main/examples/usage.png?raw=true"
+    width="450px" border="0" alt="help">
 
-### To view recorded commands
+### To view recorded commands:
 
 ```bash
 cmdb show
 ```
 
-_show cmdb pic_
+<img src="https://github.com/kobibarhanin/cmdb/blob/main/examples/show.png?raw=true"
+    width="450px" border="0" alt="help">
 
-### To run a command
-
-```bash
-cmdb run <command number> <parameters>
-```
-
-### To add a new command
+### To run a command:
 
 ```bash
 cmdb run <command number> <parameters>
 ```
+
 _if a command is not specified the commands db is showed_
 
-### To edit commands
+<img src="https://github.com/kobibarhanin/cmdb/blob/main/examples/run.png?raw=true"
+    width="450px" border="0" alt="help">
+
+### To add a new command:
+
+```bash
+cmdb add '<command >'
+```
+
+### To edit commands:
 
 ```bash
 cmdb edit
